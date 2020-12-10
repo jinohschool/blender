@@ -1,3 +1,12 @@
+##########################################################
+# How to test?                                           #
+# 1. Run this script in text editor                      #
+# 2. Go to View3D and Press F3 key                       #
+# 3. search operator with "bl_name"                      #
+#    (in this case it's "Simple Modal View3D Operator")  #
+# 4. Click "Simple Modal View3D Operator"                #
+##########################################################
+
 import bpy
 import bgl
 import blf
@@ -70,10 +79,13 @@ class ModalDrawOperator(bpy.types.Operator):
 def register():
     bpy.utils.register_class(ModalDrawOperator)
 
-
 def unregister():
     bpy.utils.unregister_class(ModalDrawOperator)
 
+def menu_func(self, context):
+    self.layout.operator(ModalDrawOperator.bl_idname)
 
 if __name__ == "__main__":
     register()
+    # this is for adding new operator to operator search menu
+    bpy.types.VIEW3D_MT_object.append(menu_func)
